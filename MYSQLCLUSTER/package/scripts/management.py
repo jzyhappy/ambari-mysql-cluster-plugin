@@ -32,11 +32,11 @@ class Management(Script):
         # Execute(remove_mysql_cmd,
         #         user='root'
         #         )
-        remove_mysql_lib_cmd = "rpm -e --nodeps mysql-libs-5.1.71-1.el6.x86_64 >/dev/null 2>&1"
+        remove_mysql_lib_cmd = "rpm -e --nodeps mysql-libs-5.7.27-el7-x86_64 >/dev/null 2>&1"
         Execute(remove_mysql_lib_cmd,
                 user='root'
                 )
-        install_server_cmd = "yum -y install MySQL-Cluster-server-gpl-7.4.11-1.el6.x86_64"
+        install_server_cmd = "yum -y install mysql-cluster-gpl-7.6.13-linux-glibc2.12-x86_64"
         Execute(install_server_cmd,
                 user='root'
                 )
