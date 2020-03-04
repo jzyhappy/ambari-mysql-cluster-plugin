@@ -33,10 +33,10 @@ class NDB(Script):
         #         user='root'
         #         )
         remove_mysql_lib_cmd = "rpm -e --nodeps mysql-libs-5.1.71-1.el6.x86_64  >/dev/null 2>&1"
-        Execute(remove_mysql_lib_cmd,
-                user='root'
-                )
-        install_server_cmd = "yum -y install MySQL-Cluster-server-gpl-7.4.11-1.el6.x86_64"
+        #Execute(remove_mysql_lib_cmd,
+        #        user='root'
+        #        )
+        install_server_cmd = "yum -y install mysql-cluster-community-data-node"
         Execute(install_server_cmd,
                 user='root'
                 )
