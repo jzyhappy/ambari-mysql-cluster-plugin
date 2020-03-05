@@ -32,7 +32,7 @@ class Management(Script):
         # Execute(remove_mysql_cmd,
         #         user='root'
         #         )
-        remove_mysql_lib_cmd = "rpm -e --nodeps mysql-libs-5.7.27-el7-x86_64 >/dev/null 2>&1"
+        #remove_mysql_lib_cmd = "rpm -e --nodeps mysql-libs-5.7.27-el7-x86_64 >/dev/null 2>&1"
         #Execute(remove_mysql_lib_cmd,
         #        user='root'
         #        )
@@ -43,8 +43,7 @@ class Management(Script):
         # create mgm config dir
         Directory(params.mgm_config_path,
                   owner='root',
-                  group='root',
-                  recursive=True
+                  group='root'
                   )
         # create cluster config
         Logger.info('create config.ini in /var/lib/mysql-cluster')
@@ -54,7 +53,7 @@ class Management(Script):
              mode = 0644,
              content=InlineTemplate(params.config_ini_template)
              )
-        Execute('ndb_mgmd -f /var/lib/mysql-cluster/config.ini --initial  >/dev/null 2>&1', logoutput = True)
+        Execute('ndb_mgmd -f /var/lib/mysql-cluster/config.ini  >/dev/null 2>&1', logoutput = True)
         # create pid file
         pid_cmd = "pgrep -o -f ^ndb_mgmd.* > {0}".format(params.mgm_pid_file)
         Execute(pid_cmd,
