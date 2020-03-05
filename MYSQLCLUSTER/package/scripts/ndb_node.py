@@ -54,7 +54,7 @@ class NDB(Script):
              mode = 0644,
              content=InlineTemplate(params.slave_config_template)
              )
-        Execute("ndbd --initial",
+        Execute("ndbd",
                 user='root'
                 )
 
