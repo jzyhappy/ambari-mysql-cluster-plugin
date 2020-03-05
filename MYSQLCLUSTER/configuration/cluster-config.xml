@@ -30,42 +30,47 @@
 NoOfReplicas=2    # Number of replicas
 DataMemory=80M    # How much memory to allocate for data storage
 IndexMemory=18M   # How much memory to allocate for index storage
-# For DataMemory and IndexMemory, we have used the
-# default values. Since the "world" database takes up
-# only about 500KB, this should be more than enough for
-# this example Cluster setup.
-
-[tcp default]
-# TCP/IP options:
-portnumber=2202   # This the default; however, you can use any
-# port that is free for all the hosts in the cluster
-# Note: It is recommended that you do not specify the port
-# number at all and simply allow the default value to be used
-# instead
+                  # For DataMemory and IndexMemory, we have used the
+                  # default values. Since the "world" database takes up
+                  # only about 500KB, this should be more than enough for
+                  # this example NDB Cluster setup.
+                  # NOTE: IndexMemory is deprecated in NDB 7.6 and later; in
+                  # these versions, resources for all data and indexes are 
+                  # allocated by DataMemory and any that are set for IndexMemory
+                  # are added to the DataMemory resource pool
+ServerPort=2202   # This the default value; however, you can use any
+                  # port that is free for all the hosts in the cluster
+                  # Note1: It is recommended that you do not specify the port
+                  # number at all and simply allow the default value to be used
+                  # instead
+                  # Note2: The port was formerly specified using the PortNumber 
+                  # TCP parameter; this parameter is no longer available in NDB
+                  # Cluster 7.5.
 
 [ndb_mgmd]
 # Management process options:
-hostname={{mgm_host}}         # Hostname or IP address of MGM node
-datadir=/var/lib/mysql-cluster  # Directory for MGM node log files
-
-# one [ndbd] section per data node
-[ndbd]
-# Options for data node
-hostname=slave1.hp         # Hostname or IP address
-datadir=/usr/local/mysql/data   # Directory for this data node's data files
+HostName=198.51.100.10          # Hostname or IP address of MGM node
+DataDir=/var/lib/mysql-cluster  # Directory for MGM node log files
 
 [ndbd]
-# Options for data node
-hostname=slave2.hp         # Hostname or IP address
-datadir=/usr/local/mysql/data   # Directory for this data node's data files
+# Options for data node "A":
+                                # (one [ndbd] section per data node)
+HostName=198.51.100.30          # Hostname or IP address
+NodeId=2                        # Node ID for this data node
+DataDir=/usr/local/mysql/data   # Directory for this data node's data files
+
+[ndbd]
+# Options for data node "B":
+HostName=198.51.100.40          # Hostname or IP address
+NodeId=3                        # Node ID for this data node
+DataDir=/usr/local/mysql/data   # Directory for this data node's data files
 
 [mysqld]
 # SQL node options:
-hostname=slave1.hp         # Hostname or IP address
-
-[mysqld]
-# SQL node options:
-hostname=slave2.hp         # Hostname or IP address
+HostName=198.51.100.20          # Hostname or IP address
+                                # (additional mysqld connections can be
+                                # specified for this node for various
+# purposes such as running ndb_restore)
         </value>
         <description>Mysql Cluster management node configuration</description>
     </property>
