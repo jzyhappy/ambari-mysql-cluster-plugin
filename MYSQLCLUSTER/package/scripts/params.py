@@ -33,7 +33,7 @@ slave_config_template = config['configurations']['node-config']['content']
 mgm_pid_file = "/var/run/mgm.pid"
 
 # sql node
-mysql_root_password = "Rootss-12345"
+mysql_root_password = "root"
 
 # path
 mgm_config_path = "/var/lib/mysql-cluster"
@@ -42,7 +42,7 @@ sql_node_pid_path = "/var/run/mysqld/"
 slave_node_config_path = "/etc"
 
 stop_mgm_ndb_cmd = "ndb_mgm -e shutdown"
-stop_sql_node_cmd = "service mysql stop"
+stop_sql_node_cmd = "/bin/systemctl stop mysqld.service"
 
 hostname = None
 if config.has_key('hostname'):
