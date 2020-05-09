@@ -72,11 +72,16 @@ class NDB(Script):
         Execute("ndbd",
                 user='root'
                 )
+        # create pid file
+        pid_cmd = "pgrep -o -f ndbd > {0}".format(params.ndb_pid_file)
+        Execute(pid_cmd,
+                logoutput=True)
 
 
     def status(self, env):
         import params
         env.set_params(params)
+        check_process_status(params.ndb_pid_file)
 
 
     def stop(self, env):
