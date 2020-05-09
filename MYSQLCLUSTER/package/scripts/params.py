@@ -32,6 +32,9 @@ slave_config_template = config['configurations']['node-config']['content']
 # mgm node
 mgm_pid_file = "/var/run/mgm.pid"
 
+# ndb
+ndb_pid_file = "/var/run/ndb.pid"
+
 # sql node
 mysql_root_password = "root"
 
